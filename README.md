@@ -2,8 +2,8 @@
 
 ## **Pre-Requistes:**
 
-1. Ubuntu instance with 4 GB RAM - Master Node - (with ports open to all traffic)
-2. Ubuntu instance with at least 2 GB RAM - Worker Node - (with ports open to all traffic)
+1. Ubuntu instance with 4 GB RAM - Master Node 
+2. Ubuntu instance with at least 2 GB RAM - Worker Node 
 
 Links refered:
 
