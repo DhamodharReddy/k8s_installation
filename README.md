@@ -13,9 +13,9 @@ Links refered:
 
 ## **Kubernetes Setup using Kubeadm**
 
-### **Start - Execute the below commands in both Master/worker nodes**
+### **Commands to be executed in both Master and worker nodes**
 
-Login to both instances execute the below commands:
+Login to instances and execute the below commands:
 ```
 sudo apt-get update -y  && sudo apt-get install apt-transport-https -y
 ```
@@ -64,7 +64,10 @@ systemctl restart docker
 systemctl enable docker.service
 ```
 
-Type exit to come out of root user.
+Exit to come out of root user.
+```
+exit
+```
 
 Install Kubernetes Modules
 ```
@@ -77,14 +80,11 @@ sudo systemctl enable kubelet.service
 sudo systemctl status docker
 ```
 
-come out of root user
-```
-exit 
-```
+Edit file **/etc/docker/daemon.json**
 ```
 sudo nano /etc/docker/daemon.json
 ```
-Paste the below lines in **/etc/docker/daemon.json**
+Paste the below content in **/etc/docker/daemon.json**
 ```
 {
     "exec-opts": ["native.cgroupdriver=systemd"]
@@ -97,8 +97,8 @@ sudo systemctl restart docker
 sudo systemctl restart kubelet
 ```
 
-### **----------------------------000000---------------------------**
-### **End - Execute the above commands in both Master/worker nodes**
+### **End of the execution in both Master and worker nodes**
+
 
 ### **Initialize Kubeadm on Master Node(only on Master Node)**
 
@@ -107,11 +107,14 @@ sudo systemctl restart kubelet
 sudo su -
 kubeadm init
 ```
+Copy the "kubeadm join"command which is to be executed in worker nodes for joining with the master node
 
 Make sure you see the master node is up.
 
-Now type exit to exit from root user and execute below commands as normal user
-
+Now exit from root user and execute below commands as normal user
+```
+exit
+```
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -133,7 +136,7 @@ kubectl get pods  --all-namespaces
 ## **Now login to Worker Node**
 
 ## **Join worker node to Master Node**
-The below command will join worker node to master node, execute this a normal user by putting sudo before:
+Paste the copied command which will join worker node to master node, execute this a normal user by putting sudo before:
 ```
 sudo kubeadm join <master_node_ip>:6443 --token xxxxxxxxxxxxxx \
     --discovery-token-ca-cert-hash sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -144,6 +147,6 @@ Go to Master and type the below command
 ```
 kubectl get nodes
 ```
-the above command should display both Master and worker nodes.
+The above command should display both Master and worker nodes.
 
 **```It means Kubernetes Cluster - both Master and worker nodes are setup successfully and up and running!!!```**
